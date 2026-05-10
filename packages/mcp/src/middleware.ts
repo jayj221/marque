@@ -19,6 +19,7 @@ export type GuardOptions = {
   audience?: string;
   scopeFor?: (tool: string, args?: Record<string, unknown>) => string;
   onAudit?: (event: AuditEvent) => void | Promise<void>;
+  isRevoked?: (jti: string) => Promise<boolean> | boolean;
 };
 
 export type AuditEvent = {
@@ -37,7 +38,7 @@ const defaultScopeFor = (tool: string) => {
 };
 
 export class AuthError extends Error {
-  constructor(message: string, readonly code: "missing_token" | "invalid_token" | "wrong_audience" | "insufficient_scope") {
+  constructor(message: string, readonly code: "missing_token" | "invalid_token" | "wrong_audience" | "insufficient_scope" | "revoked") {
     super(message);
   }
 }
@@ -58,6 +59,10 @@ export function createMcpGuard(opts: GuardOptions) {
     if (opts.audience && claims.aud && claims.aud !== opts.audience) {
       await emit(opts, evt(claims, call, "deny", "wrong_audience"));
       throw new AuthError("wrong audience", "wrong_audience");
+    }
+    if (opts.isRevoked && (await opts.isRevoked(claims.jti))) {
+      await emit(opts, evt(claims, call, "deny", "revoked"));
+      throw new AuthError("token revoked", "revoked");
     }
     const required = scopeFor(call.name, call.arguments);
     if (!anyGrants(claims.scope.map(parseScope), required)) {
