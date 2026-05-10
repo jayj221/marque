@@ -6,7 +6,7 @@ export type Scope = {
   constraints: Constraint[];
 };
 
-const SCOPE_RE = /^([a-z][a-z0-9_*]*)\.([a-z][a-z0-9_*]*)(?::(.+))?$/;
+const SCOPE_RE = /^([a-z*][a-z0-9_*]*)\.([a-z*][a-z0-9_*]*)(?::(.+))?$/;
 
 export function parseScope(s: string): Scope {
   if (s === "*") return { resource: "*", action: "*", constraints: [] };

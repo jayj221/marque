@@ -5,11 +5,19 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": { "build": "tsc -p tsconfig.json" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
   "dependencies": {
     "@marque/core": "0.0.1",
     "@marque/policy": "0.0.1"
   },
-  "engines": { "node": ">=20" },
-  "license": "Apache-2.0"
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
 }
