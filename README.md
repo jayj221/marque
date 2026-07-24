@@ -16,11 +16,11 @@ Pre-alpha. Building in public.
 
 ## Packages
 
-- `@marque/core` — identity primitives (Ed25519), permission tokens, signing
-- `@marque/policy` — scope grammar, capability policies
-- `@marque/sdk-node` — TypeScript SDK for agent runtimes
-- `@marque/mcp` — drop-in auth middleware for MCP servers
-- `@marque/audit` — append-only signed audit log
+- `@marque/core`, identity primitives (Ed25519), permission tokens, signing
+- `@marque/policy`, scope grammar, capability policies
+- `@marque/sdk-node`, TypeScript SDK for agent runtimes
+- `@marque/mcp`, drop-in auth middleware for MCP servers
+- `@marque/audit`, append-only signed audit log
 
 ## License
 
